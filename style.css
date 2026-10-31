@@ -93,6 +93,7 @@ main{max-width:1280px;margin:0 auto;padding:8px 24px 80px}
 .cell .num{font-weight:600;font-size:15px}
 .cell .nm{font-size:12px;font-weight:600;color:var(--c);line-height:1.2}
 .cell .hr{font-size:11px;color:var(--muted)}
+.cell .sh{display:none}
 .cell.today{border-color:var(--ink)}
 .cell.today .num{background:var(--ink);color:var(--canvas);border-radius:9999px;width:26px;height:26px;display:grid;place-items:center;font-size:13px}
 .legend{display:flex;gap:8px 20px;flex-wrap:wrap;font-size:14px;color:var(--body);align-items:center}
@@ -139,9 +140,8 @@ dialog p{color:var(--muted);margin:8px 0 16px}
  .hero{padding:20px;gap:20px;border-radius:16px}.hero h1{font-size:30px}.count{font-size:42px}
  .grid4{grid-template-columns:1fr 1fr;gap:12px}.scard,.stat{padding:16px}.stat b{font-size:19px}
  .cal{padding:8px}.dow,.cgrid{gap:3px}
- .cell{min-height:56px;padding:6px 4px;align-items:center;border-radius:8px;gap:2px}
- .cell .nm,.cell .hr{display:none}.cell .num{font-size:14px}
- .cell::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--c)}
+ .cell{min-height:62px;padding:6px 4px;align-items:center;border-radius:8px;gap:2px}
+ .cell .hr,.cell .full{display:none}.cell .sh{display:block}.cell .nm{font-size:9.5px;text-align:center;letter-spacing:-.2px;overflow-wrap:anywhere}.cell .num{font-size:14px}
  .cell.today .num{width:24px;height:24px}
  .fgrid{grid-template-columns:1fr}.srow{grid-template-columns:1fr 1fr}.srow .field:first-child{grid-column:1/-1}
  .filters{width:100%}.filters .field{flex:1}.field.inline{width:100%}.field.inline input{flex:1;width:auto}
