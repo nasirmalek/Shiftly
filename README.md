@@ -1,4 +1,5 @@
 # Shiftly – Shift Scheduler & Salary Calculator
+LIVE : https://nasirmalek.github.io/Shiftly
 
 Static site (HTML + CSS + vanilla JS). No backend. Open `index.html` in a browser (internet needed for the Inter font, Lucide icons and Chart.js CDN).
 
