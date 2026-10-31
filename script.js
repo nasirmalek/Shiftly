@@ -5,7 +5,7 @@ const DAY = 864e5;
 const DEFAULTS = {
   refDate: '2026-11-01', rate: 100, currency: 'INR', theme: 'light',
   shifts: {
-    inter:   { name: 'Inter Shift',   start: '16:00', end: '00:00', color: '#7c3aed' },
+    inter:   { name: 'Inter Shift',   start: '16:00', end: '00:00', color: '#c026d3' },
     morning: { name: 'Morning Shift', start: '08:00', end: '16:00', color: '#f97316' },
     night:   { name: 'Night Shift',   start: '00:00', end: '08:00', color: '#2563eb' },
     rest:    { name: 'Rest Day',                                      color: '#16a34a' }
@@ -20,6 +20,8 @@ const WORK = ['inter', 'morning', 'night'];
 const merge = (a, b) => { for (const k in b) (b[k] && typeof b[k] === 'object' && a[k]) ? merge(a[k], b[k]) : a[k] = b[k]; return a; };
 const clone = o => JSON.parse(JSON.stringify(o));
 let S = (() => { try { return merge(clone(DEFAULTS), JSON.parse(localStorage.getItem(KEY)) || {}); } catch { return clone(DEFAULTS); } })();
+// migrate browsers that saved the old Inter purple (too close to Night blue)
+if (S.shifts.inter.color === '#7c3aed') S.shifts.inter.color = DEFAULTS.shifts.inter.color;
 const persist = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch { /* storage blocked */ } };
 
 /* ================= SCHEDULE LOGIC (no DOM) ================= */
@@ -122,7 +124,7 @@ function renderCal() {
   $('#calTitle').textContent = `${MONTHS[cal.m]} ${cal.y}`;
   $('#calGrid').innerHTML = '<span class="cell blank"></span>'.repeat(lead) + tot.days.map(d => {
     const day = parts(d.dn).d;
-    return `<button class="cell${d.dn === n.dn ? ' today' : ''}" data-dn="${d.dn}" ${clr(d.t)} aria-label="${longDate(d.dn)}, ${S.shifts[d.t].name}"><span class="num">${day}</span><span class="nm">${S.shifts[d.t].name}</span><span class="hr">${d.t === 'rest' ? '' : range(d.t).replace(/ (AM|PM)/g, m => m.trim().toLowerCase())}</span></button>`;
+    return `<button class="cell${d.dn === n.dn ? ' today' : ''}" data-dn="${d.dn}" ${clr(d.t)} aria-label="${longDate(d.dn)}, ${S.shifts[d.t].name}"><span class="num">${day}</span><span class="nm"><span class="full">${S.shifts[d.t].name}</span><span class="sh">${S.shifts[d.t].name.split(' ')[0]}</span></span><span class="hr">${d.t === 'rest' ? '' : range(d.t).replace(/ (AM|PM)/g, m => m.trim().toLowerCase())}</span></button>`;
   }).join('');
   $('#legend').innerHTML = ['inter', 'morning', 'night', 'rest'].map(k => `<span ${clr(k)}><i class="dot"></i>${S.shifts[k].name}</span>`).join('');
   $('#calStats').innerHTML = `<span><b>${tot.work}</b> working days</span><span><b>${tot.cnt.rest}</b> rest days</span>`;
