@@ -140,8 +140,8 @@ dialog p{color:var(--muted);margin:8px 0 16px}
  .hero{padding:20px;gap:20px;border-radius:16px}.hero h1{font-size:30px}.count{font-size:42px}
  .grid4{grid-template-columns:1fr 1fr;gap:12px}.scard,.stat{padding:16px}.stat b{font-size:19px}
  .cal{padding:8px}.dow,.cgrid{gap:3px}
- .cell{min-height:62px;padding:6px 4px;align-items:center;border-radius:8px;gap:2px}
- .cell .hr,.cell .full{display:none}.cell .sh{display:block}.cell .nm{font-size:9.5px;text-align:center;letter-spacing:-.2px;overflow-wrap:anywhere}.cell .num{font-size:14px}
+ .cell{min-height:62px;padding:6px 1px;align-items:center;border-radius:8px;gap:2px}
+ .cell .hr,.cell .full{display:none}.cell .sh{display:block}.cell .nm{font-size:clamp(7px,2.3vw,9.5px);text-align:center;letter-spacing:-.2px;white-space:nowrap;max-width:100%;overflow:hidden}.cell .num{font-size:14px}
  .cell.today .num{width:24px;height:24px}
  .fgrid{grid-template-columns:1fr}.srow{grid-template-columns:1fr 1fr}.srow .field:first-child{grid-column:1/-1}
  .filters{width:100%}.filters .field{flex:1}.field.inline{width:100%}.field.inline input{flex:1;width:auto}
