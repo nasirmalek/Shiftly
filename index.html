@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Shiftly – Shift Scheduler & Salary Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <a class="logo" href="#dashboard">SHIFTLY</a>
+  <nav id="nav" aria-label="Main">
+    <button data-view="dashboard"><i data-lucide="layout-dashboard"></i>Dashboard</button>
+    <button data-view="calendar"><i data-lucide="calendar-days"></i>Calendar</button>
+    <button data-view="earnings"><i data-lucide="indian-rupee"></i>Earnings</button>
+    <button data-view="settings"><i data-lucide="settings"></i>Settings</button>
+  </nav>
+  <div class="top-r">
+    <span id="chipDate" class="chip"></span>
+    <div class="avatar" aria-label="Profile">S</div>
+    <button id="burger" class="icon-btn" aria-label="Open menu"><i data-lucide="menu"></i></button>
+  </div>
+</header>
+
+<main>
+  <!-- DASHBOARD -->
+  <section id="view-dashboard" class="view">
+    <div id="hero" class="hero"></div>
+    <h2>Your shifts</h2>
+    <div id="shiftCards" class="grid4"></div>
+    <h2>Next 7 days</h2>
+    <div id="upcoming" class="list card"></div>
+  </section>
+
+  <!-- CALENDAR -->
+  <section id="view-calendar" class="view" hidden>
+    <div class="cal-head">
+      <button id="prevM" class="icon-btn ring" aria-label="Previous month"><i data-lucide="chevron-left"></i></button>
+      <h2 id="calTitle"></h2>
+      <button id="nextM" class="icon-btn ring" aria-label="Next month"><i data-lucide="chevron-right"></i></button>
+      <button id="todayBtn" class="btn-2">Today</button>
+    </div>
+    <div class="card cal">
+      <div class="dow" id="dow"></div>
+      <div id="calGrid" class="cgrid"></div>
+    </div>
+    <div class="row-between">
+      <div id="legend" class="legend"></div>
+      <div id="calStats" class="legend"></div>
+    </div>
+  </section>
+
+  <!-- EARNINGS -->
+  <section id="view-earnings" class="view" hidden>
+    <div class="row-between">
+      <h2 style="margin:0">Salary calculator</h2>
+      <label class="field inline"><span>Hourly rate</span><input id="rate" type="number" min="0" step="any" inputmode="decimal"></label>
+    </div>
+    <div class="card tablewrap">
+      <table id="cycleTbl"></table>
+    </div>
+    <p class="note">The table above is one full 21-day cycle. Calendar-month and year totals below use the real dates, so they change from month to month.</p>
+
+    <div class="row-between" style="margin-top:32px">
+      <h2 style="margin:0">Earnings history</h2>
+      <div class="filters">
+        <label class="field"><span>Month</span><select id="eM"></select></label>
+        <label class="field"><span>Year</span><select id="eY"></select></label>
+      </div>
+    </div>
+    <div id="eStats" class="grid4"></div>
+    <div class="two">
+      <div class="card pad"><h3>Monthly earnings</h3><div class="chartbox"><canvas id="chart"></canvas></div></div>
+      <div class="card pad"><h3>Shift-wise earnings</h3><div id="shiftWise"></div></div>
+    </div>
+    <div class="card pad"><h3>Daily earnings</h3><div id="daily" class="daily"></div></div>
+  </section>
+
+  <!-- SETTINGS -->
+  <section id="view-settings" class="view" hidden>
+    <h2>Settings</h2>
+    <form id="setForm" class="card pad" autocomplete="off">
+      <div class="fgrid">
+        <label class="field"><span>Cycle starting date (Day 0 · Rest)</span><input type="date" id="sRef" required></label>
+        <label class="field"><span>Hourly rate</span><input type="number" id="sRate" min="0" step="any" required></label>
+        <label class="field"><span>Currency</span>
+          <select id="sCur"><option value="INR">₹ Indian Rupee</option><option value="USD">$ US Dollar</option><option value="EUR">€ Euro</option><option value="GBP">£ Pound</option><option value="AED">AED Dirham</option></select></label>
+        <label class="field"><span>Theme</span>
+          <select id="sTheme"><option value="light">Light</option><option value="dark">Dark</option></select></label>
+      </div>
+      <h3>Shifts</h3>
+      <div id="shiftSet"></div>
+      <p id="setErr" class="err" role="alert"></p>
+      <div class="actions">
+        <button class="btn" type="submit">Save changes</button>
+        <button class="btn-2" type="button" id="resetBtn">Reset to default schedule</button>
+      </div>
+    </form>
+    <p class="note">All times are Indian Standard Time (IST, UTC+05:30) regardless of your device's time zone. Settings are saved in this browser.</p>
+  </section>
+</main>
+
+<div id="toast" class="toast" role="status"></div>
+
+<dialog id="dayDlg"><div id="dayBody"></div><button class="btn-2 full" id="dayClose">Close</button></dialog>
+<dialog id="confirmDlg">
+  <h3>Reset to default schedule?</h3>
+  <p>Your start date, hourly rate, shift names, times, colors and theme will go back to the defaults.</p>
+  <div class="actions"><button class="btn-2" id="noReset">Keep my settings</button><button class="btn" id="yesReset">Reset</button></div>
+</dialog>
+
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
